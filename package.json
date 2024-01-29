@@ -1,0 +1,21 @@
+{
+  "name": "my-library",
+  "version": "0.1.0",
+  "description": "Useful utility functions and hooks for React and TypeScript.",
+  "main": "index.ts",
+  "repository": "https://github.com/kaganAhmetOkan/my-library",
+  "author": "Kağan Ahmet Okan <okaganahmet@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@types/node": "^20.11.10",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
