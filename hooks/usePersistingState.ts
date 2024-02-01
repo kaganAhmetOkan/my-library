@@ -6,16 +6,15 @@ export function usePersistingState<P = undefined>(key: string, initialState?: P)
 export function usePersistingState<P = undefined>(
   key: string, initialState?: P | undefined
 ): [P | undefined, Dispatch<SetStateAction<P | undefined>>] {
-  // old persisted state
-  const [persistingState, setPersistingState] = useState<P | undefined>();
-
-  // fetch old persisted state
-  useEffect(() => {
-    setPersistingState(getLocal(key));
-  }, [key]);
-
   // new persisted state
-  const [value, setValue] = useState<P | undefined>(persistingState ?? initialState);
+  const [value, setValue] = useState<P | undefined>(initialState);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const oldState = getLocal(key);
+      if (oldState !== null) setValue(oldState);
+    };
+  }, [key]);
 
   // update persisted state
   useEffect(() => {
@@ -23,7 +22,7 @@ export function usePersistingState<P = undefined>(
       if (event.key !== key) return;
       if (!event.newValue) return;
       if (event.newValue === event.oldValue) return;
-      
+
       const newValue = JSON.parse(event.newValue);
       setValue(newValue);
     };
@@ -33,10 +32,13 @@ export function usePersistingState<P = undefined>(
     return () => window.removeEventListener("storage", updateState);
   }, [key]);
 
-  // update local storage
-  useEffect(() => {
-    setLocal(key, value);
-  }, [key, value]);
+  // reducer function for updating value and local storage together
+  function setState(
+    state: SetStateAction<P | undefined>
+  ) {
+    setValue(state);
+    setLocal(key, state);
+  };
 
-  return [value, setValue];
+  return [value, setState];
 };
