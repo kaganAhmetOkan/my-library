@@ -17,3 +17,9 @@ export function useMediaQuery(query: string) {
 
   return matches;
 };
+
+export function useColorScheme() {
+  const isLight = useMediaQuery("(prefers-color-scheme: light)");
+
+  return { isLight, isDark: !isLight };
+};
