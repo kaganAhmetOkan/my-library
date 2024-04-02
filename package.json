@@ -1,6 +1,6 @@
 {
   "name": "my-library",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "description": "Useful utility functions and hooks for React and TypeScript.",
   "main": "index.ts",
   "repository": "https://github.com/kaganAhmetOkan/my-library",
